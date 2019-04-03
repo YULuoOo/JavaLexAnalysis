@@ -91,8 +91,29 @@ public class Java_LexAnalysis
                 {
                     word += ch;
                     char next = temp.charAt(i+1);
+                    //处理""内字符串
+                    if(ch=='"')
+                    {
+                        coutWithOps(word);
+                        word = "";
+                        while(true)
+                        {
+                            ch = temp.charAt(++i);
+                            if(ch=='"')
+                            {
+                                coutWithLetters(word);
+                                word = "";
+                                word += ch;
+                                break;
+                            }
+                            else
+                            {
+                                word += ch;
+                            }
+                        }
+                    }
                     //处理/* */注释
-                    if(ch=='/' && next=='*')
+                    else if(ch=='/' && next=='*')
                     {
                         word += next;
                         i++;
@@ -110,7 +131,7 @@ public class Java_LexAnalysis
                         }
                     }
                     //处理//注释
-                    if(ch=='/' && next=='/')
+                    else if(ch=='/' && next=='/')
                     {
                         word += next;
                         i++;
